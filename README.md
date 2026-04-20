@@ -48,3 +48,18 @@ Interface de Usuário: O sistema de "Acknowledge" via botão funciona perfeitame
 Aprendizado: O maior desafio foi integrar a lógica de MicroPython com o fluxo de build via Docker presente no repositório, garantindo que o sistema de arquivos fs.bin fosse gerado corretamente.
 
 Melhorias: Em um cenário real, adicionaria o protocolo MQTT para enviar esses dados para um dashboard em nuvem (ex: ThingsBoard ou Azure IoT).
+
+---
+
+## 7. Descrição do Problema
+O projeto visa garantir a integridade de imunobiológicos que devem ser mantidos entre 2°C e 8°C. Qualquer desvio pode comprometer a eficácia das vacinas.
+
+## 8. Arquitetura Proposta
+- **Microcontrolador:** ESP32
+- **Sensor:** DHT22 (Temperatura e Umidade)
+- **Atuadores:** LEDs de status (Verde/Azul para OK, Vermelho para Alerta) e Buzzer para aviso sonoro.
+- **Interação:** Botão "Acknowledge" para silenciar o buzzer sem desligar o alerta visual.
+
+## 9. Diferenciais da Implementação
+- **Código Não-Bloqueante:** Uso de `time.ticks_ms()` em vez de `time.sleep()`, permitindo que o botão de silenciar seja lido instantaneamente.
+- **Segurança:** O alerta visual permanece ativo mesmo se o sonoro for silenciado, até que a temperatura normalize.

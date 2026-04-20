@@ -1,5 +1,8 @@
-[wokwi]
-version = 1
-firmware = "binaries/micropython.bin"
-
-[serial]
+{
+  "flash_files": {
+    "0x1000": "binaries/bootloader.bin",
+    "0x8000": "binaries/partition-table.bin",
+    "0x10000": "binaries/micropython.bin",
+    "0x200000": "fs.bin"
+  }
+}
