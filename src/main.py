@@ -1,3 +1,6 @@
+import time
+print("Teste")
+
 import machine
 import dht
 import time
