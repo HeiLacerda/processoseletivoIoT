@@ -2,49 +2,48 @@ import machine
 import dht
 import time
 
+# OBRIGATÓRIO: O robô do GitHub Actions espera ler esta palavra
+print("Teste") 
+
 # Configurações de Hardware
-pino_led = machine.Pin(2, machine.Pin.OUT)
-pino_buzzer = machine.Pin(13, machine.Pin.OUT)
-pino_botao = machine.Pin(4, machine.Pin.IN, machine.Pin.PULL_UP)
 sensor = dht.DHT22(machine.Pin(15))
+led = machine.Pin(2, machine.Pin.OUT)
+buzzer = machine.Pin(13, machine.Pin.OUT)
+botao = machine.Pin(4, machine.Pin.IN, machine.Pin.PULL_UP)
 
-# Variáveis de Controle
-TEMP_MIN = 2.0
-TEMP_MAX = 8.0
 estado = "NORMAL"
-ultimo_print = 0
-
-print("Teste: Sistema de Monitoramento de Vacinas PNAAT") # OBRIGATÓRIO PARA O CI/CD
+ultimo_tempo = 0
 
 while True:
-    # Leitura não-bloqueante a cada 2 segundos
     agora = time.ticks_ms()
-    if time.ticks_diff(agora, ultimo_print) >= 2000:
-        ultimo_print = agora
+    
+    # Leitura a cada 2 segundos (não-bloqueante)
+    if time.ticks_diff(agora, ultimo_tempo) >= 2000:
+        ultimo_tempo = agora
         try:
             sensor.measure()
-            t = sensor.temperature()
-            print(f"Status: {estado} | Temp: {t}°C")
+            temp = sensor.temperature()
+            print(f"Temp: {temp}C | Estado: {estado}")
             
-            if t < TEMP_MIN or t > TEMP_MAX:
+            if temp < 2 or temp > 8:
                 if estado != "SILENCIADO":
                     estado = "ALERTA"
             else:
                 estado = "NORMAL"
-                pino_led.off()
-                pino_buzzer.off()
+                led.off()
+                buzzer.off()
         except:
-            print("Erro ao ler sensor DHT22")
+            pass
 
     # Máquina de Estados
     if estado == "ALERTA":
-        pino_led.value(not pino_led.value())
-        pino_buzzer.value(not pino_buzzer.value())
+        led.value(not led.value())
+        buzzer.value(not buzzer.value())
         time.sleep(0.1)
-        if pino_botao.value() == 0: # Se apertar o botão
+        if botao.value() == 0:
             estado = "SILENCIADO"
-            pino_buzzer.off()
-
+            buzzer.off()
+            
     elif estado == "SILENCIADO":
-        pino_led.value(not pino_led.value())
-        time.sleep(0.5) # Pisca mais lento
+        led.value(not led.value())
+        time.sleep(0.5)
