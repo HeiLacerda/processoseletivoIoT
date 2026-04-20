@@ -1,7 +1,6 @@
 [wokwi]
 version = 1
-firmware = "flasher_args.json"
+firmware = "binaries/micropython.bin"
 
-[[chips]]
-name = "esp"
-# Isso garante que o console serial do ESP32 seja capturado pelo CLI
+[serial]
+# Garante que a saída serial seja lida corretamente

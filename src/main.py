@@ -1,8 +1,9 @@
-import time
 import sys
+import time
 
-# Força a saída para o console
+# O MicroPython as vezes demora a iniciar a serial, 
+# então esperamos 1 segundo e depois imprimimos em loop.
+time.sleep(1)
 while True:
     print("Teste")
-    sys.stdout.write("Teste\n")
-    time.sleep(1)
+    time.sleep(2)
