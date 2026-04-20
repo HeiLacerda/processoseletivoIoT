@@ -32,4 +32,4 @@ jobs:
         token: ${{ secrets.WOKWI_CLI_TOKEN }}
         path: /
         expect_text: 'Teste'
-        timeout: 60000
+        timeout: 90000

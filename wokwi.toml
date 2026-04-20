@@ -1,3 +1,7 @@
 [wokwi]
 version = 1
 firmware = "flasher_args.json"
+
+[[chips]]
+name = "esp"
+# Isso garante que o console serial do ESP32 seja capturado pelo CLI
