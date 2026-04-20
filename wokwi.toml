@@ -3,4 +3,3 @@ version = 1
 firmware = "binaries/micropython.bin"
 
 [serial]
-# Garante que a saída serial seja lida corretamente
