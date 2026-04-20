@@ -31,7 +31,7 @@ Buzzer (Piezo): Alerta sonoro para emergências térmicas.
 Pushbutton: Botão de interação para confirmação e silenciamento de alertas.
 
 4️⃣ Decisões Técnicas Relevantes
-Lógica Não-Bloqueante: Essencial para garantir que o sistema responda a eventos (como o clique do botão) instantaneamente, mesmo durante o intervalo entre leituras do sensor.
+Lógica Não-Bloqueante: Essencial para garantir que o sistema responda a eventos (como o clique do botão) instantaneamente, mesmo durante o intervalo entre leituras do sensor. 
 
 Máquina de Estados: Facilita a manutenção do código e garante que o comportamento do sistema seja previsível e organizado.
 
